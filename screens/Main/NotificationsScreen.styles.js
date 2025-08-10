@@ -73,4 +73,13 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 14,
     },
+   
+    // --- ADD THIS STYLE ---
+   
+    emptyText: {
+        textAlign: 'center',
+        marginTop: 50,
+        fontSize: 18,
+        color: '#aaa',
+    },
 });

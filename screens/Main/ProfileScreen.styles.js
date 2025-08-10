@@ -88,4 +88,28 @@ export default StyleSheet.create({
         fontWeight: '500',
         color: '#333',
     },
+     menuTrigger: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    menuOptionsContainer: {
+        marginTop: 40,
+        borderRadius: 10,
+        padding: 5,
+        width: 250,
+    },
+    menuOption: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: 10,
+    },
+    menuOptionText: {
+        fontSize: 16,
+    },
+    divider: {
+        height: 1,
+        backgroundColor: '#eee',
+        marginVertical: 5,
+    },
 });

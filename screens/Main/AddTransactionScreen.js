@@ -1,10 +1,12 @@
 import { Feather } from '@expo/vector-icons';
-import { useContext } from 'react'; // 1. Import useContext
+import { format, isValid, parseISO } from 'date-fns'; // Import date-fns for formatting
+import { useContext } from 'react';
 import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import { BudgetContext } from '../../context/BudgetContext'; // 2. Import the BudgetContext
+import { BudgetContext } from '../../context/BudgetContext';
+import { CurrencyContext } from '../../context/CurrencyContext'; // 1. Import the CurrencyContext
 import styles from './AddTransactionScreen.styles';
 
-// CardIcon component remains the same
+// CardIcon component (no changes)
 const CardIcon = ({ type }) => {
     const isIncome = type === 'income';
     const iconColor = isIncome ? '#7B4AF7' : '#FC844D';
@@ -13,11 +15,9 @@ const CardIcon = ({ type }) => {
 };
 
 const AddTransactionScreen = ({ navigation }) => {
-    // 3. Get the global transaction list from the context
-    // This `transactions` variable will automatically update whenever a new income is added
+    // Get data from both contexts
     const { transactions } = useContext(BudgetContext);
-
-    // 4. All old state management (useState, useEffect, AsyncStorage) is now removed.
+    const { formatCurrency } = useContext(CurrencyContext); // 2. Get the currency formatter
 
     return (
         <SafeAreaView style={styles.container}>
@@ -27,14 +27,10 @@ const AddTransactionScreen = ({ navigation }) => {
                 <View style={{ width: 40 }} />
             </View>
 
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.topButtonContainer}>
                     <TouchableOpacity style={[styles.actionButton, styles.incomeButton]} onPress={() => navigation.navigate('AddIncome')}><CardIcon type="income" /><Text style={styles.actionButtonText}>Add Income</Text></TouchableOpacity>
-                    {/* The "Add Expense" button would navigate to an "AddExpenseScreen" */}
-                     <TouchableOpacity 
-                        style={[styles.actionButton, styles.expenseButton]} 
-                        onPress={() => navigation.navigate('AddExpense')}
-                    >
+                     <TouchableOpacity style={[styles.actionButton, styles.expenseButton]} onPress={() => navigation.navigate('AddExpense')}>
                         <CardIcon type="expense" />
                         <Text style={styles.actionButtonText}>Add Expense</Text>
                     </TouchableOpacity>
@@ -42,22 +38,37 @@ const AddTransactionScreen = ({ navigation }) => {
 
                 <Text style={styles.listTitle}>Last Added</Text>
 
-                {/* 5. Map over the transaction list from the context */}
-                {transactions.map((item) => (
-                    <View key={item.id} style={styles.transactionItem}>
-                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <View style={styles.transactionIconContainer}><Image source={item.icon} style={styles.transactionIcon} /></View>
-                            <View style={styles.transactionDetails}>
-                                <Text style={styles.transactionName}>{item.name}</Text>
-                                <Text style={styles.transactionDate}>{item.date}</Text>
+                {transactions.length > 0 ? (
+                    transactions.map((item) => {
+                        // Bulletproof date handling for display
+                        let displayDate = 'Invalid Date';
+                        if (item && item.date) {
+                            const dateObject = parseISO(item.date);
+                            if (isValid(dateObject)) {
+                                displayDate = format(dateObject, 'dd MMM yyyy');
+                            }
+                        }
+
+                        return (
+                            <View key={item.id} style={styles.transactionItem}>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={styles.transactionIconContainer}><Image source={item.icon} style={styles.transactionIcon} /></View>
+                                    <View style={styles.transactionDetails}>
+                                        <Text style={styles.transactionName}>{item.name}</Text>
+                                        <Text style={styles.transactionDate}>{displayDate}</Text>
+                                    </View>
+                                </View>
+                                {/* --- 3. THIS IS THE FIX --- */}
+                                {/* Use the formatCurrency function to display the amount */}
+                                <Text style={[styles.amount, item.isIncome ? styles.incomeAmount : styles.expenseAmount]}>
+                                    {formatCurrency(item.isIncome ? item.amount : -item.amount)}
+                                </Text>
                             </View>
-                        </View>
-                        {/* Correctly format the amount from a number to a string */}
-                        <Text style={[styles.amount, item.isIncome ? styles.incomeAmount : styles.expenseAmount]}>
-                            {item.isIncome ? '+' : '-'}${item.amount.toFixed(2)}
-                        </Text>
-                    </View>
-                ))}
+                        );
+                    })
+                ) : (
+                    <Text style={styles.emptyListText}>No transactions added yet.</Text>
+                )}
             </ScrollView>
         </SafeAreaView>
     );

@@ -1,31 +1,32 @@
 import { Feather, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { format, isValid, parseISO } from 'date-fns'; // Make sure 'isValid' is imported
+import { format, isValid, parseISO } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useContext } from 'react';
 import { ActivityIndicator, FlatList, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { BudgetContext } from '../../context/BudgetContext';
+import { CurrencyContext } from '../../context/CurrencyContext';
+import { NotificationContext } from '../../context/NotificationContext'; // 1. Import NotificationContext
 import styles from './HomeScreen.styles';
 
 const HomeScreen = ({ navigation }) => {
+    // Get data from all necessary contexts
     const { transactions, totalIncome, totalExpenses, totalBalance, isLoading } = useContext(BudgetContext);
+    const { formatCurrency } = useContext(CurrencyContext);
+    const { hasUnread } = useContext(NotificationContext); // 2. Get the unread status
 
     const renderItem = ({ item }) => {
-        // --- THIS IS THE FIX ---
-        // 1. Attempt to parse the date from the transaction item.
-        const dateObject = parseISO(item.date);
-        
-        // 2. Check if the parsed date is valid before trying to format it.
-        // If the date is invalid, we'll show a fallback string. This prevents the crash.
-        const displayDate = isValid(dateObject) 
-            ? format(dateObject, 'dd MMM yyyy') 
-            : 'Processing...'; // Or 'Invalid Date'
-        // --- END OF FIX ---
-
+        let displayDate = 'Date unavailable';
+        if (item && item.date) {
+            const dateObject = parseISO(item.date);
+            if (isValid(dateObject)) {
+                displayDate = format(dateObject, 'dd MMM yyyy');
+            }
+        }
         return (
             <View style={styles.transactionItem}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <View style={styles.transactionIconContainer}>
-                        <Image source={item.icon} style={styles.transactionIcon} />
+                        {item.icon ? <Image source={item.icon} style={styles.transactionIcon} /> : <View style={styles.transactionIcon} />}
                     </View>
                     <View>
                         <Text style={styles.transactionType}>{item.name}</Text>
@@ -33,19 +34,14 @@ const HomeScreen = ({ navigation }) => {
                     </View>
                 </View>
                 <Text style={[styles.transactionAmount, item.isIncome && styles.creditAmount]}>
-                    {item.isIncome ? '+' : '-'}${item.amount.toFixed(2)}
+                    {formatCurrency(item.isIncome ? item.amount : -item.amount)}
                 </Text>
             </View>
         );
     };
     
-    // Add a loading state to prevent rendering with incomplete data
     if (isLoading) {
-        return (
-            <SafeAreaView style={styles.container}>
-                <ActivityIndicator size="large" style={{ marginTop: 50 }} />
-            </SafeAreaView>
-        );
+        return ( <SafeAreaView style={styles.container}><View style={styles.header}><Text style={styles.headerTitle}>Home</Text></View><ActivityIndicator size="large" style={{ marginTop: 50 }} /></SafeAreaView> );
     }
 
     return (
@@ -60,7 +56,8 @@ const HomeScreen = ({ navigation }) => {
                     onPress={() => navigation.navigate('Notifications')}
                 >
                     <Ionicons name="notifications-outline" size={28} color="black" />
-                    <View style={styles.notificationBadge}></View>
+                    {/* 3. The red dot now only appears if there are unread notifications */}
+                    {hasUnread && <View style={styles.notificationBadge}></View>}
                 </TouchableOpacity>
             </View>
 
@@ -70,21 +67,15 @@ const HomeScreen = ({ navigation }) => {
                         <Text style={styles.balanceLabel}>Total Balance</Text>
                         <Feather name="more-horizontal" size={24} color="#fff" />
                     </View>
-                    <Text style={styles.balanceAmount}>${totalBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</Text>
+                    <Text style={styles.balanceAmount}>{formatCurrency(totalBalance)}</Text>
                     <View style={styles.incomeExpenseContainer}>
                         <View style={styles.incomeBox}>
                             <Feather name="arrow-down" size={20} color="#fff" />
-                            <View style={{ marginLeft: 8 }}>
-                                <Text style={styles.incomeExpenseLabel}>Income</Text>
-                                <Text style={styles.incomeAmount}>${totalIncome.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</Text>
-                            </View>
+                            <View style={{ marginLeft: 8 }}><Text style={styles.incomeExpenseLabel}>Income</Text><Text style={styles.incomeAmount}>{formatCurrency(totalIncome)}</Text></View>
                         </View>
                         <View style={styles.expenseBox}>
                             <Feather name="arrow-up" size={20} color="#fff" />
-                            <View style={{ marginLeft: 8 }}>
-                                <Text style={styles.incomeExpenseLabel}>Expenses</Text>
-                                <Text style={styles.expenseAmount}>${totalExpenses.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</Text>
-                            </View>
+                            <View style={{ marginLeft: 8 }}><Text style={styles.incomeExpenseLabel}>Expenses</Text><Text style={styles.expenseAmount}>{formatCurrency(totalExpenses)}</Text></View>
                         </View>
                     </View>
                 </LinearGradient>

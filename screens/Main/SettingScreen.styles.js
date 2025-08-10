@@ -29,6 +29,8 @@ export default StyleSheet.create({
     menuContainer: {
         paddingHorizontal: 20,
         marginTop: 20,
+        borderTopWidth: 1,
+        borderTopColor: '#F3F4F6',
     },
     menuItem: {
         flexDirection: 'row',
@@ -36,7 +38,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 15,
         borderBottomWidth: 1,
-        borderBottomColor: '#f0f0f0',
+        borderBottomColor: '#F3F4F6',
     },
     menuItemLeft: {
         flexDirection: 'row',
@@ -60,24 +62,23 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     flagImage: {
-        width: 30,
-        height: 20,
-        borderRadius: 4,
-        marginRight: 10,
+        width: 24,
+        height: 24,
+        marginRight: 8,
     },
-     resetButton: {
+    resetButton: {
         marginHorizontal: 20,
         marginTop: 40,
         marginBottom: 20,
-        backgroundColor: '#FEE2E2', // A light red background
+        backgroundColor: '#FEE2E2',
         padding: 15,
         borderRadius: 15,
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: '#F44336' // A red border
+        borderColor: '#F44336'
     },
     resetButtonText: {
-        color: '#F44336', // Red text
+        color: '#F44336',
         fontSize: 16,
         fontWeight: 'bold',
     },
