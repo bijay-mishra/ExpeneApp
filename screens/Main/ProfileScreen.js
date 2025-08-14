@@ -1,11 +1,11 @@
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker'; 
 import { useContext } from 'react';
 import { Alert, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { Menu, MenuOption, MenuOptions, MenuTrigger } from 'react-native-popup-menu';
 import { AuthContext } from '../../context/AuthContext';
 import styles from './ProfileScreen.styles';
 
-// Data for the static list of menu items
 const menuItems = [
     { id: '1', icon: 'account-outline', color: '#7B4AF7', text: 'Account Info' },
     { id: '2', icon: 'shield-key-outline', color: '#4CAF50', text: 'Security' },
@@ -15,28 +15,43 @@ const menuItems = [
 ];
 
 const ProfileScreen = ({ navigation }) => {
-    // Get all necessary data and functions from the context
     const { user, signOut, updateProfileImage, allAccounts, switchAccount, addAccount } = useContext(AuthContext);
-
-    const pickImage = async () => { /* ... (no changes) ... */ };
-
+    const pickImage = async () => {
+        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (permissionResult.granted === false) {
+            Alert.alert("Permission Required", "You need to allow access to your photos to update your profile picture.");
+            return;
+        }
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true, 
+            aspect: [1, 1],      
+            quality: 1,         
+        });
+        if (!result.canceled) {
+            const imageUri = result.assets[0].uri;
+            updateProfileImage(imageUri);
+        }
+    };
     const handleMenuPress = (itemId) => {
         if (itemId === '1') { navigation.navigate('AccountInfo'); } 
         else if (itemId === '2') { navigation.navigate('Security'); } 
         else if (itemId === '3') { navigation.navigate('PrivacyPolicy'); } 
         else if (itemId === '4') { navigation.navigate('Settings'); } 
         else if (itemId === '5') {
-            Alert.alert("Confirm Logout", "Are you sure you want to log out?", [ { text: "Cancel", style: "cancel" }, { text: "Logout", style: "destructive", onPress: () => signOut() } ]);
+            Alert.alert("Confirm Logout", "Are you sure you want to log out from this account?", [ { text: "Cancel", style: "cancel" }, { text: "Logout", style: "destructive", onPress: () => signOut() } ]);
         }
     };
-    
     const imageSource = user?.profileImage ? { uri: `${user.profileImage}?v=${new Date()}` } : require('../../assets/images/profile.png');
-        
     return (
         <SafeAreaView style={styles.container}>
-            {/* --- UPDATED HEADER WITH ACCOUNT SWITCHER --- */}
             <View style={styles.header}>
-                <TouchableOpacity style={styles.headerIconContainer}><MaterialCommunityIcons name="view-grid" size={28} color="black" /></TouchableOpacity>
+                 <TouchableOpacity 
+                    style={styles.headerIconContainer}
+                    onPress={() => navigation.navigate('QuickMenu')} 
+                >
+                    <MaterialCommunityIcons name="view-grid" size={28} color="black" />
+                </TouchableOpacity>
 
                 <Menu>
                     <MenuTrigger style={styles.menuTrigger}>
@@ -57,7 +72,6 @@ const ProfileScreen = ({ navigation }) => {
                         </MenuOption>
                     </MenuOptions>
                 </Menu>
-
                 <TouchableOpacity style={styles.headerIconContainer}><Feather name="edit" size={24} color="black" /></TouchableOpacity>
             </View>
             

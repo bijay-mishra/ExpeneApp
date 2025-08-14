@@ -4,50 +4,63 @@ import { Alert, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, Vie
 import { Calendar } from 'react-native-calendars';
 import { BudgetContext } from '../../context/BudgetContext';
 import { CurrencyContext } from '../../context/CurrencyContext';
-import { NotificationContext } from '../../context/NotificationContext'; // 1. Import NotificationContext
+import { NotificationContext } from '../../context/NotificationContext';
 import styles, { calendarTheme } from './AddExpenseScreen.styles';
 
-const AddExpenseScreen = ({ navigation }) => {
-    // Get functions from all necessary contexts
-    const { addTransaction } = useContext(BudgetContext);
+const AddExpenseScreen = ({ navigation, route }) => {
+    const { addTransaction, updateTransaction } = useContext(BudgetContext);
     const { currency, formatCurrency } = useContext(CurrencyContext);
-    const { addNotification } = useContext(NotificationContext); // 2. Get the addNotification function
+    const { addNotification } = useContext(NotificationContext);
 
-    const [title, setTitle] = useState('');
-    const [amount, setAmount] = useState('');
-    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+    const transactionToEdit = route.params?.transactionToEdit;
+    const isEditMode = !!transactionToEdit;
+
+    const [title, setTitle] = useState(isEditMode ? transactionToEdit.name : '');
+    const [amount, setAmount] = useState(isEditMode ? transactionToEdit.amount.toString() : '');
+    const [selectedDate, setSelectedDate] = useState(isEditMode ? transactionToEdit.date : new Date().toISOString().split('T')[0]);
     const [selectedCategory, setSelectedCategory] = useState('Food');
     const categories = ['Food', 'Shopping', 'Bills', 'Entertainment'];
 
-    const handleAddExpense = () => {
+    const handleSubmit = () => {
         if (!title || !amount) {
             Alert.alert('Missing Information', 'Please fill out the title and amount.');
             return;
         }
         const numericAmount = parseFloat(amount);
-        const newTransaction = {
-            id: Date.now().toString(),
-            icon: selectedCategory === 'Food' ? require('../../assets/images/food.png') : require('../../assets/images/shopping.png'),
-            name: title,
-            date: selectedDate,
-            amount: numericAmount,
-            isIncome: false,
-        };
-        addTransaction(newTransaction);
-
-        // 3. Create a new notification after adding the transaction
-        addNotification({
-            type: 'icon',
-            image: require('../../assets/images/bill.png'),
-            text: `You added an expense of ${formatCurrency(numericAmount)} for "${title}".`
-        });
-
+        if (isEditMode) {
+            const updatedData = {
+                name: title,
+                amount: numericAmount,
+                date: selectedDate,
+            };
+            updateTransaction(transactionToEdit.id, updatedData);
+            Alert.alert("Success", "Transaction updated successfully!");
+        } else {
+            const newTransaction = {
+                id: Date.now().toString(),
+                icon: selectedCategory === 'Food' ? require('../../assets/images/food.png') : require('../../assets/images/shopping.png'),
+                name: title,
+                date: selectedDate,
+                amount: numericAmount,
+                isIncome: false,
+            };
+            addTransaction(newTransaction);
+            addNotification({
+                type: 'icon',
+                image: require('../../assets/images/bill.png'),
+                text: `You added an expense of ${formatCurrency(numericAmount)} for "${title}".`
+            });
+        }
         navigation.goBack();
     };
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.header}><TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}><Feather name="arrow-left" size={24} color="black" /></TouchableOpacity><Text style={styles.headerTitle}>Add Expense</Text><View style={{ width: 40 }} /></View>
+            <View style={styles.header}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}><Feather name="arrow-left" size={24} color="black" /></TouchableOpacity>
+                <Text style={styles.headerTitle}>{isEditMode ? 'Edit Expense' : 'Add Expense'}</Text>
+                <View style={{ width: 40 }} />
+            </View>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.contentContainer}>
                     <View style={styles.calendarContainer}><Calendar current={selectedDate} onDayPress={(day) => setSelectedDate(day.dateString)} markedDates={{ [selectedDate]: { selected: true, selectedColor: '#FC844D' } }} theme={calendarTheme} /></View>
@@ -59,7 +72,11 @@ const AddExpenseScreen = ({ navigation }) => {
                     <View style={styles.categoryContainer}>{categories.map(category => ( <TouchableOpacity key={category} style={[styles.categoryButton, selectedCategory === category && styles.categoryButtonActive]} onPress={() => setSelectedCategory(category)}><Text style={[styles.categoryText, selectedCategory === category && styles.categoryTextActive]}>{category}</Text></TouchableOpacity> ))}<TouchableOpacity style={styles.addCategoryButton}><Feather name="plus" size={20} color="#888" /></TouchableOpacity></View>
                 </View>
             </ScrollView>
-            <View style={styles.footer}><TouchableOpacity style={styles.submitButton} onPress={handleAddExpense}><Text style={styles.submitButtonText}>Add Expense</Text></TouchableOpacity></View>
+            <View style={styles.footer}>
+                <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+                    <Text style={styles.submitButtonText}>{isEditMode ? 'Save Changes' : 'Add Expense'}</Text>
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>
     );
 };

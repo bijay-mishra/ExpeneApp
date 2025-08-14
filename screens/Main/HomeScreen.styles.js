@@ -129,12 +129,11 @@ export default StyleSheet.create({
   transactionAmount: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#F44336', // Red for debit
+    color: '#F44336', 
   },
   creditAmount: {
-    color: '#4CAF50', // Green for credit
+    color: '#4CAF50', 
   },
-  // Bottom Tab Bar Styles
   bottomTabBar: {
     position: 'absolute',
     bottom: 0,
@@ -147,7 +146,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     borderTopWidth: 1,
     borderTopColor: '#f0f0f0',
-    paddingBottom: 10, // For notch/home indicator space
+    paddingBottom: 10, 
   },
   tabItem: {
     alignItems: 'center',
@@ -160,9 +159,7 @@ export default StyleSheet.create({
     backgroundColor: '#7846F6',
     justifyContent: 'center',
     alignItems: 'center',
-    // To lift it up
     bottom: 25,
-    // Shadows
     shadowColor: '#7846F6',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
@@ -180,4 +177,19 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: '#fff',
   },
+   menuOptionsContainer: {
+        borderRadius: 10,
+        marginTop: 30, 
+        width: 180, 
+    },
+    menuOption: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 12,
+    },
+    menuOptionText: {
+        marginLeft: 10,
+        fontSize: 16,
+        color: '#333',
+    },
 });

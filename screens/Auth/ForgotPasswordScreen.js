@@ -7,18 +7,15 @@ import styles from './ForgotPasswordScreen.styles';
 const ForgotPasswordScreen = ({ navigation }) => {
     const [emailOrPhone, setEmailOrPhone] = useState('');
     const { sendPasswordResetOtp } = useContext(AuthContext);
-
     const handleSendOtp = () => {
         if (!emailOrPhone) {
             Alert.alert('Input Required', 'Please enter your email or phone number.');
             return;
         }
-        // The context function will handle the logic and navigation on success
         sendPasswordResetOtp(emailOrPhone, (otp) => {
             navigation.navigate('VerifyOtp', { emailOrPhone, otp });
         });
     };
-
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>

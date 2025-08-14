@@ -51,7 +51,7 @@ export default StyleSheet.create({
     },
     changePasswordButton: {
         marginTop: 10,
-        alignSelf: 'flex-start', // Align button to the left
+        alignSelf: 'flex-start',
     },
     changePasswordText: {
         color: '#7B4AF7',

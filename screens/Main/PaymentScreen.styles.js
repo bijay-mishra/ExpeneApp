@@ -21,36 +21,37 @@ export default StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
     },
+    headerButton: {
+        padding: 8,
+    },
     scrollContainer: {
         padding: 20,
     },
-    label: {
+    methodItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#F9FAFB',
+        padding: 15,
+        borderRadius: 15,
+        marginBottom: 15,
+    },
+    methodIcon: {
+        width: 40,
+        height: 40,
+        resizeMode: 'contain',
+        marginRight: 15,
+    },
+    methodDetails: {
+        flex: 1,
+    },
+    methodType: {
         fontSize: 16,
         fontWeight: '600',
         color: '#333',
-        marginBottom: 10,
-        marginTop: 15,
     },
-    input: {
-        backgroundColor: '#F3F4F6',
-        borderRadius: 15,
-        padding: 15,
-        fontSize: 16,
-    },
-    textArea: {
-        height: 150,
-        textAlignVertical: 'top', 
-    },
-    submitButton: {
-        backgroundColor: '#7B4AF7',
-        padding: 15,
-        borderRadius: 20,
-        alignItems: 'center',
-        marginTop: 30,
-    },
-    submitButtonText: {
-        color: 'white',
-        fontSize: 18,
-        fontWeight: 'bold',
+    methodNumber: {
+        fontSize: 14,
+        color: '#888',
+        marginTop: 2,
     },
 });

@@ -4,12 +4,10 @@ import { Alert, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 're
 import styles from './VerifyOtpScreen.styles';
 
 const VerifyOtpScreen = ({ route, navigation }) => {
-    const { emailOrPhone, otp: correctOtp } = route.params; // Get passed params
+    const { emailOrPhone, otp: correctOtp } = route.params; 
     const [enteredOtp, setEnteredOtp] = useState('');
 
     const handleVerifyOtp = () => {
-        // In a real app, this check would happen on a server.
-        // For our simulation, we compare the entered OTP with the one passed via params.
         if (enteredOtp === correctOtp.toString()) {
             Alert.alert('Success', 'OTP Verified!');
             navigation.navigate('CreateNewPassword', { emailOrPhone });
@@ -17,7 +15,6 @@ const VerifyOtpScreen = ({ route, navigation }) => {
             Alert.alert('Error', 'Invalid OTP. Please try again.');
         }
     };
-
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}><TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}><Feather name="arrow-left" size={24} color="black" /></TouchableOpacity></View>

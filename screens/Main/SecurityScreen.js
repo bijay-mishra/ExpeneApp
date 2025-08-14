@@ -6,7 +6,6 @@ import styles from './SecurityScreen.styles';
 
 const SecurityScreen = ({ navigation }) => {
     const { user } = useContext(AuthContext);
-
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -16,7 +15,6 @@ const SecurityScreen = ({ navigation }) => {
                 <Text style={styles.headerTitle}>Security</Text>
                 <View style={{ width: 40 }} />
             </View>
-
             <ScrollView style={styles.contentContainer}>
                 <View style={styles.infoRow}>
                     <Text style={styles.label}>Name</Text>
@@ -31,8 +29,6 @@ const SecurityScreen = ({ navigation }) => {
                 <View style={styles.infoRow}>
                     <Text style={styles.label}>Password</Text>
                     <TextInput style={[styles.input, styles.disabledInput]} value={"••••••••••••"} editable={false} secureTextEntry={true} />
-                    
-                    {/* Only show "Change Password" for non-Google users */}
                     {!user?.isGoogleUser && (
                         <TouchableOpacity 
                             style={styles.changePasswordButton}

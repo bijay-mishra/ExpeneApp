@@ -29,14 +29,14 @@ export default StyleSheet.create({
     scrollContainer: {
         paddingHorizontal: 20,
         paddingBottom: 20,
-        paddingTop: 10, // Added padding to the top
+        paddingTop: 10,
     },
     card: {
         borderRadius: 25,
         padding: 25,
         marginBottom: 20,
-        height: 200, // Fixed height for the card
-        justifyContent: 'space-between', // Pushes header and footer apart
+        height: 200, 
+        justifyContent: 'space-between', 
     },
     cardHeader: {
         flexDirection: 'row',
@@ -44,7 +44,7 @@ export default StyleSheet.create({
         alignItems: 'flex-start',
     },
     balanceContainer: {
-        alignItems: 'flex-end', // Aligns text to the right
+        alignItems: 'flex-end', 
     },
     balanceLabel: {
         fontSize: 14,
@@ -57,7 +57,6 @@ export default StyleSheet.create({
         marginTop: 5,
     },
     cardFooter: {
-        // No extra styles needed as justifyContent pushes it down
     },
     cardNumber: {
         fontSize: 18,
@@ -70,7 +69,6 @@ export default StyleSheet.create({
         color: 'rgba(255, 255, 255, 0.8)',
     },
 
-    // --- STYLES FOR THE "ADD CARD" MODAL ---
     modalBackdrop: {
         flex: 1,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -82,7 +80,6 @@ export default StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 20,
         padding: 25,
-        // Add shadow for a floating effect
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -111,7 +108,7 @@ export default StyleSheet.create({
         fontSize: 16,
     },
     disabledInput: {
-        backgroundColor: '#E5E7EB', // A slightly darker gray to show it's disabled
+        backgroundColor: '#E5E7EB',
         color: '#9CA3AF',
     },
     addButton: {

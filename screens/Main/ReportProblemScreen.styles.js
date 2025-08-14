@@ -7,7 +7,6 @@ export default StyleSheet.create({
     },
     header: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 20,
         paddingVertical: 10,
@@ -20,6 +19,7 @@ export default StyleSheet.create({
     headerTitle: {
         fontSize: 20,
         fontWeight: 'bold',
+        marginLeft: 20,
     },
     scrollContainer: {
         padding: 20,
@@ -36,13 +36,14 @@ export default StyleSheet.create({
         borderRadius: 15,
         padding: 15,
         fontSize: 16,
+        color: '#333',
     },
     textArea: {
         height: 150,
-        textAlignVertical: 'top', // Aligns placeholder to the top on Android
+        textAlignVertical: 'top',
     },
     submitButton: {
-        backgroundColor: '#7B4AF7',
+        backgroundColor: '#F44336', 
         padding: 15,
         borderRadius: 20,
         alignItems: 'center',

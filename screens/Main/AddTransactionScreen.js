@@ -1,23 +1,20 @@
 import { Feather } from '@expo/vector-icons';
-import { format, isValid, parseISO } from 'date-fns'; // Import date-fns for formatting
+import { format, isValid, parseISO } from 'date-fns'; 
 import { useContext } from 'react';
 import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { BudgetContext } from '../../context/BudgetContext';
-import { CurrencyContext } from '../../context/CurrencyContext'; // 1. Import the CurrencyContext
+import { CurrencyContext } from '../../context/CurrencyContext'; 
 import styles from './AddTransactionScreen.styles';
 
-// CardIcon component (no changes)
 const CardIcon = ({ type }) => {
     const isIncome = type === 'income';
     const iconColor = isIncome ? '#7B4AF7' : '#FC844D';
     const arrowName = isIncome ? 'arrow-down' : 'arrow-up';
     return ( <View style={styles.cardIconContainer}><View style={[styles.cardBody, { backgroundColor: iconColor }]} /><View style={[styles.cardStrip, { backgroundColor: iconColor, opacity: 0.6 }]} /><View style={styles.cardArrowContainer}><Feather name={arrowName} size={8} color={iconColor} /></View></View> );
 };
-
 const AddTransactionScreen = ({ navigation }) => {
-    // Get data from both contexts
     const { transactions } = useContext(BudgetContext);
-    const { formatCurrency } = useContext(CurrencyContext); // 2. Get the currency formatter
+    const { formatCurrency } = useContext(CurrencyContext); 
 
     return (
         <SafeAreaView style={styles.container}>
@@ -40,7 +37,6 @@ const AddTransactionScreen = ({ navigation }) => {
 
                 {transactions.length > 0 ? (
                     transactions.map((item) => {
-                        // Bulletproof date handling for display
                         let displayDate = 'Invalid Date';
                         if (item && item.date) {
                             const dateObject = parseISO(item.date);
@@ -48,7 +44,6 @@ const AddTransactionScreen = ({ navigation }) => {
                                 displayDate = format(dateObject, 'dd MMM yyyy');
                             }
                         }
-
                         return (
                             <View key={item.id} style={styles.transactionItem}>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -58,8 +53,6 @@ const AddTransactionScreen = ({ navigation }) => {
                                         <Text style={styles.transactionDate}>{displayDate}</Text>
                                     </View>
                                 </View>
-                                {/* --- 3. THIS IS THE FIX --- */}
-                                {/* Use the formatCurrency function to display the amount */}
                                 <Text style={[styles.amount, item.isIncome ? styles.incomeAmount : styles.expenseAmount]}>
                                     {formatCurrency(item.isIncome ? item.amount : -item.amount)}
                                 </Text>

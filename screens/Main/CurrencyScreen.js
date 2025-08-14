@@ -6,7 +6,7 @@ import styles from './CurrencyScreen.styles';
 
 const CurrencyScreen = ({ navigation }) => {
     const { currency, setAppCurrency } = useContext(CurrencyContext);
-    const currencyData = Object.values(currencySettings); // Get an array of all currency objects
+    const currencyData = Object.values(currencySettings);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -23,7 +23,7 @@ const CurrencyScreen = ({ navigation }) => {
                         style={styles.currencyItem}
                         onPress={() => {
                             setAppCurrency(item.code);
-                            navigation.goBack(); // Go back after selection
+                            navigation.goBack(); 
                         }}
                     >
                         <View style={styles.currencyLeft}>

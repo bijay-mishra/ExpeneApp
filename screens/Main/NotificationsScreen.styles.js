@@ -74,8 +74,6 @@ export default StyleSheet.create({
         fontSize: 14,
     },
    
-    // --- ADD THIS STYLE ---
-   
     emptyText: {
         textAlign: 'center',
         marginTop: 50,

@@ -5,7 +5,6 @@ import styles from './PrivacyPolicyScreen.styles';
 const PrivacyPolicyScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
-            {/* Header */}
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
                     <Feather name="arrow-left" size={24} color="black" />
@@ -44,7 +43,6 @@ const PrivacyPolicyScreen = ({ navigation }) => {
                     </Text>
                 </View>
 
-                {/* You can continue adding more sections as needed */}
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>4. HOW DO WE KEEP YOUR INFORMATION SAFE?</Text>
                     <Text style={styles.paragraph}>

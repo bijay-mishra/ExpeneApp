@@ -1,19 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-
-// --- Correct Default Imports for all screens ---
 import AddTransactionScreen from '../screens/Main/AddTransactionScreen';
 import HomeScreen from '../screens/Main/HomeScreen';
 import OverviewScreen from '../screens/Main/OverviewScreen';
 import ProfileScreen from '../screens/Main/ProfileScreen';
 import WalletScreen from '../screens/Main/WalletScreen';
 
-// Dummy components for other tabs
-
 const Tab = createBottomTabNavigator();
-
-// This custom tab bar component does not need changes.
 function CustomTabBar({ state, descriptors, navigation }) {
     return (
       <View style={styles.bottomTabBar}>

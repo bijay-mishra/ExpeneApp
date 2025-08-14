@@ -5,10 +5,8 @@ import { Alert, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Text, 
 import styles from './FeedbackScreen.styles';
 
 const FeedbackScreen = ({ navigation, route }) => {
-    // This parameter tells us which menu item was clicked
     const { isReport } = route.params;
     const screenTitle = isReport ? 'Report a Problem' : 'Send Feedback';
-    
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
 
@@ -21,7 +19,7 @@ const FeedbackScreen = ({ navigation, route }) => {
         const isAvailable = await MailComposer.isAvailableAsync();
         if (isAvailable) {
             MailComposer.composeAsync({
-                recipients: ['support@expenseapp.com'], // Your support email
+                recipients: ['support@expenseapp.com'], 
                 subject: `${screenTitle}: ${subject}`,
                 body: message,
             });
@@ -29,7 +27,6 @@ const FeedbackScreen = ({ navigation, route }) => {
             Alert.alert('Email Not Available', 'Please configure an email account on this device to proceed.');
         }
     };
-
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>

@@ -60,7 +60,7 @@ export default StyleSheet.create({
     },
     contentContainer: {
         paddingHorizontal: 20,
-        paddingBottom: 100, // Space for the submit button at the bottom
+        paddingBottom: 100, 
     },
     calendarContainer: {
         backgroundColor: '#F3F4F6',

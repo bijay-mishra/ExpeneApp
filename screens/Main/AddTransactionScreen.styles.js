@@ -12,15 +12,11 @@ export default StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10,
     },
-    // --- START: CORRECTED BACK BUTTON STYLE ---
     backButton: {
-        // Adding the container styles to match the design
         padding: 8,
         borderRadius: 12,
         backgroundColor: '#fff',
-        // Shadow for Android
         elevation: 5,
-        // Shadow for iOS
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -29,7 +25,6 @@ export default StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 2.62,
     },
-    // --- END: CORRECTED BACK BUTTON STYLE ---
     headerTitle: {
         fontSize: 20,
         fontWeight: 'bold',

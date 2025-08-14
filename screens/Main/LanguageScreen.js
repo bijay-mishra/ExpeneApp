@@ -5,18 +5,14 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { LanguageContext } from '../../context/LanguageContext';
 import styles from './LanguageScreen.styles';
 
-// --- Data for the dropdown ---
 const languageData = [
     { label: 'English', value: 'en', image: require('../../assets/images/us-flag.png') },
     { label: 'Nepali', value: 'ne', image: require('../../assets/images/nepal-flag.png') },
     { label: 'Italian', value: 'it', image: require('../../assets/images/italy-flag.png') },
 ];
-// Note: You must add 'nepal-flag.png' and 'italy-flag.png' to your assets/images folder.
 
 const LanguageScreen = ({ navigation }) => {
     const { locale, setLanguage } = useContext(LanguageContext);
-
-    // Component to render each item in the dropdown list
     const renderItem = item => {
         return (
             <View style={styles.dropdownItem}>

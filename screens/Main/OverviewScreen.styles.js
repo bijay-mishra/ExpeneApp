@@ -228,19 +228,18 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         color: '#F44336',
     },
-      amountText: { // A generic style for the amount
+      amountText: { 
         fontSize: 16,
         fontWeight: 'bold',
     },
     container: { flex: 1, backgroundColor: '#fff',},
-    //... keep all styles the same until the end
     expenseCategory: { fontSize: 16, fontWeight: '500',},
     expenseDate: { fontSize: 13, color: '#888', marginTop: 2,},
     incomeAmountText: {
-        color: '#4CAF50', // Green for income
+        color: '#4CAF50',
     },
     expenseAmountText: {
-        color: '#F44336', // Red for expenses
+        color: '#F44336',
     },
     emptyListText: {
         textAlign: 'center',

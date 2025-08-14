@@ -1,19 +1,19 @@
 import { StyleSheet } from 'react-native';
 
-const orangeColor = '#FC844D'; // Changed from purple to orange
+const orangeColor = '#FC844D'; 
 
 export const calendarTheme = {
     backgroundColor: '#ffffff',
     calendarBackground: '#ffffff',
     textSectionTitleColor: '#b6c1cd',
-    selectedDayBackgroundColor: orangeColor, // Use orange
+    selectedDayBackgroundColor: orangeColor, 
     selectedDayTextColor: '#ffffff',
-    todayTextColor: orangeColor, // Use orange
+    todayTextColor: orangeColor, 
     dayTextColor: '#2d4150',
     textDisabledColor: '#d9e1e8',
-    dotColor: orangeColor, // Use orange
+    dotColor: orangeColor, 
     selectedDotColor: '#ffffff',
-    arrowColor: orangeColor, // Use orange
+    arrowColor: orangeColor, 
     monthTextColor: '#2d4150',
     indicatorColor: 'blue',
     textDayFontWeight: '300',
@@ -37,11 +37,11 @@ export default StyleSheet.create({
     input: { flex: 1, fontSize: 16, color: '#333' },
     categoryContainer: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' },
     categoryButton: { backgroundColor: '#F3F4F6', paddingVertical: 10, paddingHorizontal: 20, borderRadius: 15, marginRight: 10, marginBottom: 10 },
-    categoryButtonActive: { backgroundColor: orangeColor }, // Use orange
+    categoryButtonActive: { backgroundColor: orangeColor }, 
     categoryText: { fontSize: 14, fontWeight: '500', color: '#333' },
     categoryTextActive: { color: '#fff' },
     addCategoryButton: { width: 40, height: 40, borderRadius: 15, backgroundColor: '#F3F4F6', justifyContent: 'center', alignItems: 'center' },
     footer: { position: 'absolute', bottom: 0, left: 0, right: 0, padding: 20, backgroundColor: '#fff' },
-    submitButton: { backgroundColor: orangeColor, padding: 15, borderRadius: 20, alignItems: 'center' }, // Use orange
+    submitButton: { backgroundColor: orangeColor, padding: 15, borderRadius: 20, alignItems: 'center' },
     submitButtonText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
 });

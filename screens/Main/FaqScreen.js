@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import styles from './FaqScreen.styles';
 
-// --- Updated and Expanded FAQ Data ---
 const faqs = [
     { 
         id: '1', 
@@ -18,7 +17,7 @@ const faqs = [
     { 
         id: '3', 
         question: 'Can I edit or delete a transaction?', 
-        answer: 'Currently, editing and deleting individual transactions is a feature planned for a future update. For now, please be sure your entry is correct before saving. You can use the "Factory Reset" option in Settings to clear all data if you need to start over.' 
+        answer: 'Yes. On the Home screen, simply long-press (tap and hold) on any transaction in the list. A menu will appear allowing you to either "Edit" or "Delete" that specific item.' 
     },
     { 
         id: '4', 
@@ -28,7 +27,7 @@ const faqs = [
     { 
         id: '5', 
         question: 'Can I change my password?', 
-        answer: 'Yes. Navigate to Profile > Security Code, then tap "Change Password". You will need to enter your current password to set a new one. Please note, this option is not available if you signed up using Google Sign-In.' 
+        answer: 'Yes. Navigate to Profile > Security, then tap "Change Password". You will need to enter your current password to set a new one. Please note, this option is not available if you signed up using Google Sign-In.' 
     },
     { 
         id: '6', 
@@ -48,7 +47,7 @@ const faqs = [
     { 
         id: '9', 
         question: 'Can I change the currency?', 
-        answer: 'Currently, the app uses USD ($) as the default currency for all transactions. Support for multiple currencies is a feature we are considering for a future update.' 
+        answer: 'Yes. Go to Profile > Settings and tap on the "Currency" option. You can select your preferred currency from the list, and all financial values in the app will update automatically.'
     },
     { 
         id: '10', 
@@ -56,8 +55,6 @@ const faqs = [
         answer: 'This is a permanent action that will delete ALL of your transaction, budget, and card data from the app and from your device. Your user account itself will not be deleted, but all financial records will be cleared. This action cannot be undone.' 
     },
 ];
-
-// Reusable component for each FAQ item
 const FaqItem = ({ item }) => {
     const [isOpen, setIsOpen] = useState(false);
     return (

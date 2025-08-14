@@ -55,7 +55,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
           };
 
           if (route.name === "Add") {
-              return <View key={route.key} style={styles.tabItem} /> // Empty placeholder
+              return <View key={route.key} style={styles.tabItem} />
           }
 
           return (
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   tabBar: {
     flexDirection: 'row',
     height: TAB_BAR_HEIGHT,
-    paddingTop: 15, // Push icons down
+    paddingTop: 15, 
   },
   tabItem: {
     flex: 1,

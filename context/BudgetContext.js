@@ -2,20 +2,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, useEffect, useState } from 'react';
 
 export const BudgetContext = createContext();
-
-const TRANSACTIONS_STORAGE_KEY = '@ExpenseApp_Transactions';
-
-// Initial data for the very first app launch
+const TRANSACTIONS_STORAGE_KEY = '@ExpenseApp_Transactions_V2';
 const firstTimeTransactions = [
     { id: '1', name: 'Initial Income', date: new Date().toISOString().split('T')[0], amount: 1000, isIncome: true, icon: require('../assets/images/salary.png') },
     { id: '2', name: 'Groceries', date: new Date().toISOString().split('T')[0], amount: 50, isIncome: false, icon: require('../assets/images/food.png') },
 ];
 
 export const BudgetProvider = ({ children }) => {
-    // Default state is always a valid empty array
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
     useEffect(() => {
         const loadTransactions = async () => {
             try {
@@ -27,21 +22,20 @@ export const BudgetProvider = ({ children }) => {
                 }
             } catch (e) {
                 console.error('Failed to load transactions.', e);
-                setTransactions(firstTimeTransactions);
+                setTransactions(firstTimeTransactions); 
             }
-            setIsLoading(false);
+            setIsLoading(false); 
         };
         loadTransactions();
     }, []);
-    
     const saveTransactions = async (newTransactions) => {
         try {
-            await AsyncStorage.setItem(TRANSACTIONS_STORAGE_KEY, JSON.stringify(newTransactions));
+            const jsonValue = JSON.stringify(newTransactions);
+            await AsyncStorage.setItem(TRANSACTIONS_STORAGE_KEY, jsonValue);
         } catch (e) {
             console.error('Failed to save transactions.', e);
         }
     };
-
     const totalIncome = transactions.filter(t => t.isIncome).reduce((sum, t) => sum + t.amount, 0);
     const totalExpenses = transactions.filter(t => !t.isIncome).reduce((sum, t) => sum + t.amount, 0);
     const totalBalance = totalIncome - totalExpenses;
@@ -49,15 +43,26 @@ export const BudgetProvider = ({ children }) => {
     const addTransaction = (newTransaction) => {
         const newTransactionList = [newTransaction, ...transactions];
         setTransactions(newTransactionList);
+        saveTransactions(newTransactionList); 
+    };
+
+    const deleteTransaction = (transactionId) => {
+        const newTransactionList = transactions.filter(t => t.id !== transactionId);
+        setTransactions(newTransactionList);
+        saveTransactions(newTransactionList);
+    };
+
+    const updateTransaction = (transactionId, updatedData) => {
+        const newTransactionList = transactions.map(t => (t.id === transactionId ? { ...t, ...updatedData } : t));
+        setTransactions(newTransactionList);
         saveTransactions(newTransactionList);
     };
 
     const factoryReset = () => {
         const emptyList = [];
         setTransactions(emptyList);
-        saveTransactions(emptyList);
+        saveTransactions(emptyList); 
     };
-
     const value = {
         transactions,
         totalIncome,
@@ -65,9 +70,10 @@ export const BudgetProvider = ({ children }) => {
         totalBalance,
         isLoading,
         addTransaction,
+        deleteTransaction,
+        updateTransaction,
         factoryReset,
     };
-
     return (
         <BudgetContext.Provider value={value}>
             {children}

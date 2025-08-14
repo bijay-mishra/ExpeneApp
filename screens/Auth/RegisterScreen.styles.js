@@ -22,7 +22,6 @@ export default StyleSheet.create({
         marginBottom: 20,
         textAlign: 'center',
     },
-    // --- START: NEW AND UPDATED STYLES ---
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -44,7 +43,6 @@ export default StyleSheet.create({
         color: '#9CA3AF',
         fontWeight: '600',
     },
-    // --- END: NEW AND UPDATED STYLES ---
     button: {
         width: '100%',
         height: 50,

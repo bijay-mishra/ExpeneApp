@@ -37,7 +37,7 @@ export default StyleSheet.create({
         color: '#333',
     },
     showPasswordButton: {
-        paddingLeft: 10, // Add space between input and button text
+        paddingLeft: 10,
     },
     showPasswordText: {
         color: '#9CA3AF',
@@ -133,18 +133,18 @@ export default StyleSheet.create({
         color: '#374151',
     },
        footerContainer: {
-        position: 'absolute', // Position it at the bottom of the screen
-        bottom: 20, // Give it some padding from the very bottom
-        left: 20, // Match the container's padding
+        position: 'absolute', 
+        bottom: 20, 
+        left: 20, 
         right: 20,
-        alignItems: 'center', // Center the text
+        alignItems: 'center', 
     },
     footerText: {
-        fontSize: 12, // Use a small font size for subtlety
-        color: '#9CA3AF', // A light, unobtrusive gray color
+        fontSize: 12, 
+        color: '#9CA3AF',
     },
     developerName: {
-        color: '#6B7280', // A slightly darker gray for your name
+        color: '#6B7280', 
         fontWeight: '600',
     },
 });
