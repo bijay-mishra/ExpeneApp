@@ -44,4 +44,13 @@ export default StyleSheet.create({
     footer: { position: 'absolute', bottom: 0, left: 0, right: 0, padding: 20, backgroundColor: '#fff' },
     submitButton: { backgroundColor: orangeColor, padding: 15, borderRadius: 20, alignItems: 'center' },
     submitButtonText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+      dropdown: {
+        height: 55,
+        backgroundColor: '#F3F4F6',
+        borderRadius: 15,
+        padding: 15,
+    },
+    dropdownItemText: {
+        fontSize: 16,
+    },
 });

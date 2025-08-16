@@ -139,4 +139,13 @@ export default StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
+     dropdown: {
+        height: 55,
+        backgroundColor: '#F3F4F6',
+        borderRadius: 15,
+        padding: 15,
+    },
+    dropdownItemText: {
+        fontSize: 16,
+    },
 });

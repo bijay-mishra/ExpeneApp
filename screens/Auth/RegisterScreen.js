@@ -42,7 +42,7 @@ const RegisterScreen = ({ navigation }) => {
                     <Text style={styles.linkText}>Already have an account? Sign In</Text>
                 </TouchableOpacity>
             </ScrollView>
-            <View style={styles.footerContainer}><Text style={styles.footerText}>Designed & Developed by <Text style={styles.developerName}>Bijay Mishra</Text></Text></View>
+            <View style={styles.footerContainer}><Text style={styles.footerText}>Developed by <Text style={styles.developerName}>Er.Bijay Mishra</Text></Text></View>
         </SafeAreaView>
     );
 };

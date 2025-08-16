@@ -47,6 +47,7 @@ const SignInScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}>
                 <View style={styles.logoContainer}><Image source={require('../../assets/images/icon.png')} style={styles.logo} /></View>
                 <Text style={styles.title}>Welcome Back!</Text>
@@ -64,7 +65,7 @@ const SignInScreen = ({ navigation }) => {
                 <View style={styles.separatorContainer}><View style={styles.line} /><Text style={styles.separatorText}>OR</Text><View style={styles.line} /></View>
                 <TouchableOpacity style={styles.googleButton} onPress={() => googleSignIn()}><Image source={require('../../assets/images/google-icon.png')} style={styles.googleIcon} /><Text style={styles.googleButtonText}>Sign in with Google</Text></TouchableOpacity>
             </ScrollView>
-            <View style={styles.footerContainer}><Text style={styles.footerText}>Designed & Developed by <Text style={styles.developerName}>Bijay Mishra</Text></Text></View>
+            <View style={styles.footerContainer}><Text style={styles.footerText}>Developed by <Text style={styles.developerName}>Er.Bijay Mishra</Text></Text></View>
         </SafeAreaView>
     );
 };
